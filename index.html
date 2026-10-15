@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>جسر الخلاص - تاريخ الفداء</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+        <h1>رحلة جسر الخلاص</h1>
+        <p class="subtitle">من العبودية... إلى إتمام الفداء</p>
+        <div class="progress" id="progress-text">المحطة 1 من 9</div>
+    </header>
+
+    <!-- مشهد الجسر (الوادي والجبال) -->
+    <main class="scene" id="scene">
+        <!-- الجبل الأيسر (البداية) -->
+        <div class="cliff left-cliff"></div>
+        
+        <!-- مساحة بناء الجسر -->
+        <div class="bridge-gap" id="bridge-gap">
+            <!-- الأحجار هتنزل هنا بالترتيب عن طريق الجافاسكريبت -->
+        </div>
+
+        <!-- الجبل الأيمن (النهاية/السماء) -->
+        <div class="cliff right-cliff"></div>
+        
+        <!-- الهاوية (الوادي) -->
+        <div class="chasm"></div>
+    </main>
+
+    <!-- زر التحكم الأساسي -->
+    <div class="controls">
+        <button id="btn-next-step" class="btn btn-primary">كشف المحطة 1</button>
+    </div>
+
+    <!-- نافذة الشرح (Modal) -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-emoji" id="modal-emoji"></div>
+            <h2 id="modal-title">عنوان المحطة</h2>
+            <div class="divider"></div>
+            <p id="modal-subtitle">وصف قصير</p>
+            
+            <button id="btn-place-stone" class="btn btn-action">تثبيت الحجر في الجسر 🧱</button>
+        </div>
+    </div>
+
+    <!-- شاشة الاحتفال في النهاية -->
+    <div id="end-screen" class="end-screen hidden">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

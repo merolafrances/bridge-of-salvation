@@ -1,0 +1,255 @@
+/* --- المتغيرات والألوان --- */
+:root {
+    --sky-color: #87CEEB; /* لون سماء نهاري */
+    --sky-glow: #ffd700; /* لون التوهج الذهبي في النهاية */
+    --cliff-color: #5D4037; /* لون الجبال */
+    --cliff-top: #388E3C; /* عشب فوق الجبل */
+    --chasm-color: #1a237e; /* لون الهاوية الغميق */
+    --stone-color: #9E9E9E; /* لون الحجر */
+    --stone-dark: #757575;
+    --primary-btn: #E65100;
+    --text-dark: #2c3e50;
+    --text-light: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--sky-color);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 2s ease; /* انتقال ناعم للون السماء في النهاية */
+}
+
+/* حالة اكتمال الجسر (سماء منورة) */
+body.salvation-complete {
+    background: radial-gradient(circle at center, var(--sky-glow) 0%, var(--sky-color) 70%);
+}
+
+/* --- الهيدر --- */
+header {
+    text-align: center;
+    padding: 1.5rem 1rem 0;
+    z-index: 10;
+}
+
+h1 {
+    color: #1A237E;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.7);
+}
+
+.subtitle {
+    color: #3E2723;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 0.3rem;
+}
+
+.progress {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: var(--primary-btn);
+    color: var(--text-light);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* --- المشهد الأساسي (الوادي والجبال) --- */
+.scene {
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* لضبط العرض على الشاشات الكبيرة */
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 10vh; /* المسافة من أسفل الشاشة */
+}
+
+.cliff {
+    width: 15%; /* عرض الجبل */
+    height: 40vh;
+    background-color: var(--cliff-color);
+    position: relative;
+    border-radius: 5px 5px 0 0;
+    box-shadow: inset -10px 0 20px rgba(0,0,0,0.3);
+}
+
+.cliff::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 15px;
+    background-color: var(--cliff-top);
+    border-radius: 5px 5px 0 0;
+}
+
+.left-cliff { border-radius: 0 10px 0 0; }
+.right-cliff { border-radius: 10px 0 0 0; box-shadow: inset 10px 0 20px rgba(0,0,0,0.3); }
+
+/* الهاوية تحت الجسر */
+.chasm {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 10vh;
+    background: linear-gradient(to bottom, transparent, var(--chasm-color));
+    z-index: 1;
+}
+
+/* مساحة بناء الجسر بين الجبلين */
+.bridge-gap {
+    width: 70%; /* المسافة بين الجبلين */
+    height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* --- تصميم أحجار الجسر --- */
+.stone-container {
+    flex: 1; /* كل حجر ياخد مساحة متساوية */
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.stone {
+    width: 95%;
+    height: 50px;
+    background-color: var(--stone-color);
+    border: 2px solid var(--stone-dark);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    /* حركة النزول من السماء */
+    animation: dropIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform: translateY(-500px);
+    opacity: 0;
+}
+
+/* التعديل الخاص بقطعة الصليب (النقطة 9) */
+.stone.cross-stone {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 4rem;
+    color: #FFD700;
+    text-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500;
+    animation: dropCross 1.5s ease-in forwards;
+    z-index: 10;
+}
+
+@keyframes dropIn {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dropCross {
+    0% { transform: translateY(-500px) scale(2); opacity: 0; }
+    50% { transform: translateY(-50px) scale(1.2); opacity: 1; text-shadow: 0 0 50px #FFF; }
+    100% { transform: translateY(0) scale(1); opacity: 1; text-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500; }
+}
+
+/* --- منطقة الأزرار --- */
+.controls {
+    text-align: center;
+    padding: 1rem;
+    z-index: 10;
+    position: absolute;
+    bottom: 2rem;
+    left: 0; right: 0;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: inherit;
+    font-weight: 800;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn:active { transform: scale(0.95); }
+
+.btn-primary { background-color: #2E7D32; color: white; border: 2px solid #1B5E20; }
+.btn-primary:hover { background-color: #1B5E20; }
+
+.btn-action { background-color: var(--primary-btn); color: white; width: 100%; margin-top: 1.5rem; }
+.btn-action:hover { background-color: #BF360C; }
+
+/* --- النافذة المنبثقة (Modal) للشرح --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    animation: popIn 0.4s ease-out;
+}
+
+.modal-emoji { font-size: 4rem; margin-bottom: 1rem; }
+.modal-content h2 { color: #1A237E; font-size: 1.8rem; margin-bottom: 0.5rem; }
+.divider { width: 50px; height: 4px; background-color: var(--primary-btn); margin: 0.5rem auto 1rem; border-radius: 2px; }
+.modal-content p { color: #546E7A; font-size: 1.2rem; font-weight: bold; }
+
+/* شاشة النهاية */
+.end-screen {
+    position: absolute;
+    top: 20%; left: 0; right: 0;
+    text-align: center;
+    z-index: 15;
+    animation: fadeIn 2s ease-in;
+}
+
+.end-screen h2 { font-size: 3rem; color: #FFD700; text-shadow: 0 4px 10px rgba(0,0,0,0.5); margin-bottom: 0.5rem;}
+.end-screen p { font-size: 1.5rem; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-weight: bold;}
+
+.hidden { display: none !important; }
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* تجاوب مع شاشات الموبايل */
+@media (max-width: 600px) {
+    .cliff { width: 10%; }
+    .bridge-gap { width: 80%; }
+    .stone { height: 35px; font-size: 1rem; border-radius: 4px; border-width: 1px;}
+    .stone.cross-stone { font-size: 3rem; }
+}
